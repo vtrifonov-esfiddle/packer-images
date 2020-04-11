@@ -1,0 +1,72 @@
+{
+    "_comment": "Build with `packer build ubuntu.json`",
+    "variables": {
+        "vm_name": "ubuntu1804",
+        "cpus": "2",
+        "memory": "1024",
+        "disk_size": "21440",
+        "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.4-server-amd64.iso",
+        "iso_checksum": "e2ecdace33c939527cbc9e8d23576381c493b071107207d2040af72595f8990b",
+        "iso_checksum_type": "sha256",
+        "preseed": "preseed.cfg",
+        "locale": "en_GB",
+        "keyboard_layout": "GB",
+        "ssh_username": null,
+        "ssh_password": null,
+        "desktop": null,
+        "vm_output_directory": null
+    },
+    "builders": [{
+        "boot_command": [
+            "<esc><wait><esc><esc><enter><wait>",
+            "set gfxpayload=1280x1024<enter>",
+            "linux /install/vmlinuz ",
+            "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/{{ user `preseed` }} ",
+            "debian-installer={{ user `locale` }} auto locale={{ user `locale` }} kbd-chooser/method={{ user `keyboard_layout` }} ",
+            "hostname={{.Name}} ",
+            "fb=false debconf/frontend=noninteractive ",
+            "passwd/user-fullname={{ user `ssh_username` }} ",
+            "passwd/username={{ user `ssh_username` }} ",
+            "passwd/user-password={{ user `ssh_password` }} ",
+            "passwd/user-password-again={{ user `ssh_password` }} ",
+            "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout={{ user `keyboard_layout` }} ",
+            "keyboard-configuration/variant= console-setup/ask_detect=false <enter>",
+            "initrd /install/initrd.gz<enter>",
+            "boot<enter>"
+        ],
+        "vm_name": "{{user `vm_name` }}",
+        "type": "hyperv-iso",
+        "disk_size": "{{user `disk_size`}}",
+        "guest_additions_mode": "disable",
+        "iso_url": "{{user `iso_url`}}",
+        "iso_checksum_type": "{{user `iso_checksum_type`}}",
+        "iso_checksum": "{{user `iso_checksum`}}",
+        "communicator": "ssh",
+        "ssh_username": "{{user `ssh_username`}}",
+        "ssh_password": "{{user `ssh_password`}}",
+        "ssh_timeout": "4h",
+        "http_directory": "http",
+        "boot_wait": "5s",
+        "shutdown_command": "echo {{user `ssh_password`}} | sudo -S -E shutdown -P now",
+        "memory": "{{user `memory`}}",
+        "cpus": "{{user `cpus`}}",
+        "generation": 2,
+        "enable_secure_boot": false,
+        "output_directory": "{{ user `vm_output_directory` }}/{{ user `vm_name` }}"
+    }],
+    "provisioners": [{
+        "environment_vars": [
+            "DEBIAN_FRONTEND=noninteractive",
+            "DESKTOP={{user `desktop`}}",
+            "SSH_USERNAME={{user `ssh_username`}}",
+            "SSH_PASSWORD={{user `ssh_password`}}"
+        ],
+        "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+        "scripts": [
+            "script/update.sh",
+            "script/desktop.sh"
+        ],
+        "type": "shell",
+        "expect_disconnect": "true"
+    }]
+}

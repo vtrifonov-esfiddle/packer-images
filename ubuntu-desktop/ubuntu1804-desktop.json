@@ -1,0 +1,18 @@
+{
+    "_comment": "Build with `packer build -var-file=ubuntu1804-desktop.json ubuntu.json`",
+
+    "vm_name": "ubuntu1804-desktop",
+
+    "desktop": "true",
+    "locale": "en_GB",
+    "keyboard_layout": "GB",
+
+    "cpus": "3",
+    "memory": "4096",
+    "disk_size": "40000",
+
+    "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/18.04/release/ubuntu-18.04.4-server-amd64.iso",
+    "iso_checksum": "e2ecdace33c939527cbc9e8d23576381c493b071107207d2040af72595f8990b",
+    "iso_checksum_type": "sha256",
+    "preseed": "preseed-desktop.cfg"
+}
