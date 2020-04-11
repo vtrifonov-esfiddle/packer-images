@@ -1,16 +1,20 @@
 # packer-images
 
-# Build ubuntu-desktop
+## ubuntu-desktop
 
-run the build script with admin priviledges
+Creates ubuntu desktop image from ubuntu server .iso. Based on: https://github.com/boxcutter/ubuntu
 
-## Interactively
+### Build
+
+Run the build script with admin priviledges.
+
+### Interactively
 
 ```
 .\ubuntu-desktop\Build.ps1
 ```
 
-## Using Env Variables
+### Using Env Variables
 ```
 $env:PACKER_USERNAME = "user"; `
 $env:PACKER_PASSWORD = "password"; `
