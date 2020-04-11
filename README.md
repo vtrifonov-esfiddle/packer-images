@@ -6,7 +6,7 @@ Creates ubuntu desktop image from ubuntu server .iso. Based on: https://github.c
 
 ### Build
 
-Run the build script with admin priviledges.
+Run the build script with admin priviledges in powershell.
 
 ### Interactively
 
