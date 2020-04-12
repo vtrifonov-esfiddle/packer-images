@@ -1,0 +1,14 @@
+---
+# playbook.yml
+- name: "Provision Image"
+  hosts: all
+  become: yes
+  
+  tasks:
+  - name: install nginx
+    package:
+      name: "nginx"
+      state: present
+  - name: update hostname
+    hostname:
+      name: ubuntu1804-ansible-test

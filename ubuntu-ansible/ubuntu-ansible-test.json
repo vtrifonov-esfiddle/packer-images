@@ -1,0 +1,43 @@
+{
+    "_comment": "Build with `packer build ubuntu.json`",
+
+    "variables": {
+        "vm_name": "ubuntu1804-ansible-test",
+        "cpus": "2",
+        "memory": "2048",
+
+        "ssh_username": null,
+        "ssh_password": null,
+
+        "base_image_directory": null,
+        "base_image_name": "ubuntu1804-ansible-base",
+        "vm_output_directory": null
+    },
+    "builders": [{
+        "boot_command": [
+            "<enter>"
+        ],
+        "type": "hyperv-vmcx",
+        "clone_from_vmcx_path": "{{ user `base_image_directory` }}/{{ user `base_image_name` }}",
+        "output_directory": "{{ user `vm_output_directory` }}/{{ user `vm_name` }}",
+
+        "vm_name": "{{user `vm_name` }}",
+        "memory": "{{user `memory`}}",
+        "cpus": "{{user `cpus`}}",
+
+        "communicator": "ssh",
+        "ssh_username": "{{user `ssh_username`}}",
+        "ssh_password": "{{user `ssh_password`}}",
+        "ssh_timeout": "4h",
+
+        "boot_wait": "5s",
+        "shutdown_command": "echo {{user `ssh_password`}} | sudo -S -E shutdown -P now"
+    }],
+    "provisioners": [{
+        "type": "ansible-local",
+        "playbook_file": "./playbooks/playbook.yaml",
+        "extra_arguments": ["--extra-vars \"ansible_sudo_pass={{user `ssh_password`}}\"",
+            "--user \"{{user `ssh_username`}}\""
+        ]
+    }]
+}
