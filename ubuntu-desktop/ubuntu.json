@@ -63,8 +63,8 @@
         ],
         "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
         "scripts": [
-            "script/update.sh",
-            "script/desktop.sh"
+            "scripts/update.sh",
+            "scripts/desktop.sh"
         ],
         "type": "shell",
         "expect_disconnect": "true"
