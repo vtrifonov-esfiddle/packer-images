@@ -16,9 +16,10 @@ $VM_OUTPUT_DIRECTORY = Set-Parameter $VM_OUTPUT_DIRECTORY "VM_OUTPUT_DIRECTORY: 
 
 $CurrentPath = $PWD
 cd $PSSCriptRoot
-packer build -var-file ubuntu1804-desktop.json `
+packer build `
      -var "ssh_username=$SSH_USERNAME" `
      -var "ssh_password=$SSH_PASSWORD" `
      -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
-     ubuntu.json 
+     -var "base_image_directory=$VM_OUTPUT_DIRECTORY" `
+     ubuntu-desktop.json 
 cd $CurrentPath

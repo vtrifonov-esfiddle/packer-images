@@ -20,5 +20,5 @@ packer build `
      -var "ssh_username=$SSH_USERNAME" `
      -var "ssh_password=$SSH_PASSWORD" `
      -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
-     ubuntu.json 
+     ubuntu-base.json 
 cd $CurrentPath
