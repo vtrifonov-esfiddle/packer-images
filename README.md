@@ -1,23 +1,32 @@
 # packer-images
 
+## ubuntu-base
+
+Creates base image from ubuntu server .iso. To be used for other images.
+Based on: https://github.com/boxcutter/ubuntu
+
 ## ubuntu-desktop
 
-Creates ubuntu desktop image from ubuntu server .iso. Based on: https://github.com/boxcutter/ubuntu
+Creates ubuntu desktop image from ubuntu-base image.
 
-### Build
+## ubuntu-server
 
-Run the build script with admin priviledges in powershell.
+Creates ubuntu server image from ubuntu-base image.
 
-### Interactively
+## Build
+
+navigate to the base directory of the chosen image
+
+#### Interactively
 
 ```
-.\ubuntu-desktop\Build.ps1
+.\Build.ps1
 ```
 
-### Using Env Variables
+#### Using Env Variables
 ```
 $env:PACKER_USERNAME = "user"; `
 $env:PACKER_PASSWORD = "password"; `
 $env:VM_OUTPUT_DIRECTORY = "."; `
-.\ubuntu-desktop\Build.ps1
+.\Build.ps1
 ```
