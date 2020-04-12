@@ -15,8 +15,11 @@ Creates ubuntu server image from ubuntu-base image.
 
 ## Build
 
-navigate to the base directory of the chosen image
-
+1. navigate to the base directory of the chosen image e.g:
+```
+cd .\ubuntu-base\
+```
+2. Build either interactively or using env variables
 #### Interactively
 
 ```
