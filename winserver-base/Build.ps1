@@ -4,6 +4,7 @@
 [string] $VM_OUTPUT_DIRECTORY = "$env:VM_OUTPUT_DIRECTORY"
 [string] $PACKER_TEMPLATE = "$env:PACKER_TEMPLATE"
 [string] $AnswerIsoDrive = "$env:PACKER_ANSWER_ISO_DRIVE"
+[Nullable[int]] $InstallationImageIndex = $env:PACKER_INSTALLATION_IMAGE_INDEX
 
 function Set-Parameter($Parameter, $Prompt) {
     if ([string]::IsNullOrEmpty($Parameter)) {
@@ -16,12 +17,17 @@ $USERNAME = Set-Parameter $USERNAME  "USERNAME: "
 $PASSWORD = Set-Parameter $PASSWORD "PASSWORD: "
 $VM_OUTPUT_DIRECTORY = Set-Parameter $VM_OUTPUT_DIRECTORY "VM OUTPUT DIRECTORY: "
 $PACKER_TEMPLATE = Set-Parameter $PACKER_TEMPLATE "PACKER TEMPLATE e.g. winserver2016-base.json: "
-$AnswerIsoDrive = Set-Parameter $AnswerIsoDrive "ANSWER ISO DRIVE (default ""E:""): "
+if ([string]::IsNullOrEmpty($AnswerIsoDrive)) {
+    $AnswerIsoDrive = "E:"    
+}
+if ($null -eq $InstallationImageIndex) {
+    $InstallationImageIndex = 1        
+}
 
 $CurrentPath = $PWD
 cd $PSSCriptRoot
 
-.\GenerateAnswerIso.ps1 -Username $USERNAME -Password $PASSWORD -AnswerIsoDrive $AnswerIsoDrive
+.\GenerateAnswerIso.ps1 -Username $USERNAME -Password $PASSWORD -AnswerIsoDrive $AnswerIsoDrive -InstallationImageIndex $InstallationImageIndex
 packer build `
      -var "username=$USERNAME" `
      -var "password=$PASSWORD" `

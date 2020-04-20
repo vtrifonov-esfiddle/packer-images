@@ -4,7 +4,12 @@ Param(
 	[Parameter(Mandatory=$true)]
 	[string] $Password,
 	[string] $AnswerIsoDrive = "E:",
-	[string] $Locale = "en-GB"
+	[string] $Locale = "en-GB",
+	# 1 ->  Windows Server 2016 Standard Evaluation
+	# 2 ->  Windows Server 2016 Standard Evaluation (Desktop Experience)
+	# 3 ->  Windows Server 2016 Datacenter Evaluation
+	# 4 ->  Windows Server 2016 Datacenter Evaluation (Desktop Experience)
+	[int] $InstallationImageIndex = 1
 )
 $RootPath = Resolve-Path ".\AnswerIso"
 $OutputPath = "$RootPath\answer.iso"
@@ -19,6 +24,10 @@ function GenerateAutountattend() {
 	$AutounattendXml.Load("$RootPath\Autounattend.template.xml")
 		
 	$windowsPE = $AutounattendXml.unattend.settings[0]
+
+	$InstallFromMetadata = $windowsPE.component.ImageInstall.OSImage.InstallFrom.Metadata
+	$InstallFromMetadata.Value = "$InstallationImageIndex"
+
 	$UserData = $windowsPE.component.UserData[2]
 	$UserData.FullName = $Username
 	$UserData.Organization = $Username
