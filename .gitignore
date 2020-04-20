@@ -1,6 +1,11 @@
 # Cache objects
 packer_cache/
 
+# Answer generated files
+answer.iso
+Autounattend.xml
+SysprepUnattend.xml
+
 # Crash log
 crash.log
 
