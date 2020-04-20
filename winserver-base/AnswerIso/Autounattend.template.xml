@@ -80,8 +80,12 @@
                 <OSImage>
                     <InstallFrom>
                         <MetaData wcm:action="add">
-                            <Key>/IMAGE/NAME </Key>
-                            <Value>Windows Server 2016 SERVERSTANDARDCORE</Value>
+                            <Key>/IMAGE/INDEX </Key>
+                            <Value>2</Value>
+                            <!-- 1 ->  Windows Server 2016 Standard Evaluation -->
+                            <!-- 2 ->  Windows Server 2016 Standard Evaluation (Desktop Experience) -->
+                            <!-- 3 ->  Windows Server 2016 Datacenter Evaluation -->
+                            <!-- 4 ->  Windows Server 2016 Datacenter Evaluation (Desktop Experience) -->
                         </MetaData>
                     </InstallFrom>
                     <InstallTo>
