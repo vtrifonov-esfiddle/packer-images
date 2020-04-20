@@ -15,8 +15,8 @@ function Set-Parameter($Parameter, $Prompt) {
 $USERNAME = Set-Parameter $USERNAME  "USERNAME: "
 $PASSWORD = Set-Parameter $PASSWORD "PASSWORD: "
 $VM_OUTPUT_DIRECTORY = Set-Parameter $VM_OUTPUT_DIRECTORY "VM OUTPUT DIRECTORY: "
-$PACKER_TEMPLATE = Set-Parameter $PACKER_TEMPLATE "PACKER TEMPLATE: "
-$AnswerIsoDrive = Set-Parameter $AnswerIsoDrive "ANSWER ISO DRIVE: "
+$PACKER_TEMPLATE = Set-Parameter $PACKER_TEMPLATE "PACKER TEMPLATE e.g. winserver2016-base.json: "
+$AnswerIsoDrive = Set-Parameter $AnswerIsoDrive "ANSWER ISO DRIVE (default ""E:""): "
 
 $CurrentPath = $PWD
 cd $PSSCriptRoot

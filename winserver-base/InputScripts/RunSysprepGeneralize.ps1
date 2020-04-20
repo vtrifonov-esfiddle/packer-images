@@ -5,7 +5,7 @@ function GetSysprepUnattendPath() {
     if (-not ($SysprepUnattendPath | Test-Path)) {
         Write-Error "SysprepUnattend.xml path not found"
     }
-    return SysprepUnattendPath
+    return $SysprepUnattendPath
 }
 $SysprepUnattendPath = GetSysprepUnattendPath
 Write-Host ">>>sysprep using $SysprepUnattendPath"
