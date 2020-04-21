@@ -43,7 +43,7 @@
                 </LocalAccounts>
             </UserAccounts>
             <DisableAutoDaylightTimeSet>true</DisableAutoDaylightTimeSet>
-            <TimeZone>Coordinated Universal Time</TimeZone>
+            <TimeZone>UTC</TimeZone>
             <VisualEffects>
                 <SystemDefaultBackgroundColor>2</SystemDefaultBackgroundColor>
             </VisualEffects>

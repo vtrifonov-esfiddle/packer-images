@@ -73,25 +73,21 @@ function GenerateAutountattend() {
 		return $SynchronousCommand
 	}
 
-	$disablePassword = Get-SynchronousCommand "Disable password expiration for default user"
-	$disablePassword.CommandLine = "cmd.exe /c wmic useraccount where ""name='$Username'"" set PasswordExpires=FALSE"
-
 	function Get-PowershellCommandFromAnswerIso($fileName) {
-		return "cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -File $AnswerIsoDrive\$fileName"
+		return "cmd.exe /c C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy ByPass -File $AnswerIsoDrive\$fileName -Username ""$Username"" -Password ""$Password"""
 	}
-	$SetPowersavingConfig = Get-SynchronousCommand "Turn off all power saving and timeouts"
-	$SetPowersavingConfig.CommandLine = Get-PowershellCommandFromAnswerIso "SetPowerConfig.ps1"
+
+	$SetupWinRM = Get-SynchronousCommand "Setup WinRM"
+	$SetupWinRM.CommandLine = Get-PowershellCommandFromAnswerIso "SetupWinRM.ps1"
+
+	$SetupWinRM = Get-SynchronousCommand "Setup Windows Settings"
+	$SetupWinRM.CommandLine = Get-PowershellCommandFromAnswerIso "SetupWindowsSettings.ps1"
 
 	$EnableMicrosoftUpdates = Get-SynchronousCommand "Enable Microsoft Updates"
 	$EnableMicrosoftUpdates.CommandLine = Get-PowershellCommandFromAnswerIso "EnableMicrosoftUpdates.ps1"
 
 	$InstallWindowsUpdates = Get-SynchronousCommand "Install Windows Updates"
 	$InstallWindowsUpdates.CommandLine = Get-PowershellCommandFromAnswerIso "InstallWindowsUpdates.ps1"
-
-	if ($WindowsVersion -eq "Win10") {
-		$SetAutoLoginPassword = Get-SynchronousCommand "Set AutoLoginPassword"
-		$SetAutoLoginPassword.CommandLine = "%SystemRoot%\System32\reg.exe ADD ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v DefaultPassword /t REG_SZ /d $Password /f"
-	}
 	
 	$AutounattendXml.Save("$InputPath\Autounattend.xml")
 }

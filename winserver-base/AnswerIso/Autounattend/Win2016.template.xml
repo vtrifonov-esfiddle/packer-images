@@ -81,7 +81,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/INDEX </Key>
-                            <Value>2</Value>
+                            <Value>1</Value>
                             <!-- 1 ->  Windows Server 2016 Standard Evaluation -->
                             <!-- 2 ->  Windows Server 2016 Standard Evaluation (Desktop Experience) -->
                             <!-- 3 ->  Windows Server 2016 Datacenter Evaluation -->
@@ -115,7 +115,7 @@
                 <HelpCustomized>false</HelpCustomized>
             </OEMInformation>
             <ComputerName>nl-ams-basebox1</ComputerName>
-            <TimeZone>Coordinated Universal Time</TimeZone>
+            <TimeZone>UTC</TimeZone>
             <RegisteredOwner />
         </component>
         <component name="Microsoft-Windows-ServerManager-SvrMgrNc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -162,7 +162,7 @@
                 </LocalAccounts>
             </UserAccounts>
             <RegisteredOwner />
-            <TimeZone>Coordinated Universal Time</TimeZone>
+            <TimeZone>UTC</TimeZone>
             <AutoLogon>
                 <Password>
                     <Value>vagrant</Value>
@@ -185,166 +185,36 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm quickconfig -q</CommandLine>
-                    <Description>winrm quickconfig -q</Description>
+                    <CommandLine></CommandLine>
+                    <Description>Setup WinRM</Description>
                     <Order>3</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm quickconfig -transport:http</CommandLine>
-                    <Description>winrm quickconfig -transport:http</Description>
+                    <CommandLine></CommandLine>
                     <Order>4</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config @{MaxTimeoutms="1800000"}</CommandLine>
-                    <Description>Win RM MaxTimeoutms</Description>
-                    <Order>5</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxMemoryPerShellMB="300"}</CommandLine>
-                    <Description>Win RM MaxMemoryPerShellMB</Description>
-                    <Order>6</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/service @{AllowUnencrypted="true"}</CommandLine>
-                    <Description>Win RM AllowUnencrypted</Description>
-                    <Order>7</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/service/auth @{Basic="true"}</CommandLine>
-                    <Description>Win RM auth Basic</Description>
-                    <Order>8</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/client/auth @{Basic="true"}</CommandLine>
-                    <Description>Win RM client auth Basic</Description>
-                    <Order>9</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/listener?Address=*+Transport=HTTP @{Port="5985"} </CommandLine>
-                    <Description>Win RM listener Address/Port</Description>
-                    <Order>10</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c netsh advfirewall firewall set rule group="remote administration" new enable=yes </CommandLine>
-                    <Description>Win RM adv firewall enable</Description>
-                    <Order>11</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c sc config winrm start= auto</CommandLine>
-                    <Description>Win RM Autostart</Description>
-                    <Order>12</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c net stop winrm </CommandLine>
-                    <Description>Stop Win RM Service </Description>
-                    <Order>13</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c netsh advfirewall firewall add rule name="WinRM 5985" protocol=TCP dir=in localport=5985 action=allow</CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>14</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c netsh advfirewall firewall add rule name="WinRM 5986" protocol=TCP dir=in localport=5986 action=allow</CommandLine>
-                    <Description>Win RM port open</Description>
-                    <Order>15</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v HideFileExt /t REG_DWORD /d 0 /f</CommandLine>
-                    <Order>16</Order>
-                    <Description>Show file extensions in Explorer</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\Console /v QuickEdit /t REG_DWORD /d 1 /f</CommandLine>
-                    <Order>17</Order>
-                    <Description>Enable QuickEdit mode</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v Start_ShowRun /t REG_DWORD /d 1 /f</CommandLine>
-                    <Order>18</Order>
-                    <Description>Show Run command in Start Menu</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>%SystemRoot%\System32\reg.exe ADD HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ /v StartMenuAdminTools /t REG_DWORD /d 1 /f</CommandLine>
-                    <Order>19</Order>
-                    <Description>Show Administrative Tools in Start Menu</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateFileSizePercent /t REG_DWORD /d 0 /f</CommandLine>
-                    <Order>20</Order>
-                    <Description>Zero Hibernation File</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>%SystemRoot%\System32\reg.exe ADD HKLM\SYSTEM\CurrentControlSet\Control\Power\ /v HibernateEnabled /t REG_DWORD /d 0 /f</CommandLine>
-                    <Order>21</Order>
-                    <Description>Disable Hibernation Mode</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c wmic useraccount where "name='vagrant'" set PasswordExpires=FALSE</CommandLine>
-                    <Order>22</Order>
-                    <Description>Disable password expiration for default user</Description>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxShellsPerUser="30"}</CommandLine>
-                    <Description>Win RM MaxShellsPerUser</Description>
-                    <Order>23</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c winrm set winrm/config/winrs @{MaxProcessesPerShell="25"}</CommandLine>
-                    <Description>Win RM MaxProcessesPerShell</Description>
-                    <Order>24</Order>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>%SystemRoot%\System32\reg.exe ADD "HKLM\System\CurrentControlSet\Services\Netlogon\Parameters" /v DisablePasswordChange /t REG_DWORD /d 1 /f</CommandLine>
-                    <Description>Turn off computer password</Description>
-                    <Order>25</Order>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow</CommandLine>
-                    <Description>ICMP open for ping</Description>
-                    <Order>26</Order>
+                    <Description>Setup Windows Settings</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <!-- WITH WINDOWS UPDATES -->
                 <SynchronousCommand wcm:action="add">
                     <CommandLine></CommandLine>
-                    <Order>97</Order>
-                    <Description>Turn off all power saving and timeouts</Description>
-                    <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
-                    <CommandLine></CommandLine>
-                    <Order>98</Order>
+                    <Order>5</Order>
                     <Description>Enable Microsoft Updates</Description>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine></CommandLine>
                     <Description>Install Windows Updates</Description>
-                    <Order>100</Order>
+                    <Order>6</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c shutdown /r /d p:4:2 /t 1</CommandLine>
                     <Description>Restart Windows</Description>
-                    <Order>101</Order>
+                    <Order>7</Order>
                     <RequiresUserInput>true</RequiresUserInput>
-                </SynchronousCommand>
+                </SynchronousCommand>                
             </FirstLogonCommands>	
         </component>
     </settings>

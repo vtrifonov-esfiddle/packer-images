@@ -7,6 +7,7 @@
 [Nullable[int]] $InstallationImageIndex = $env:PACKER_INSTALLATION_IMAGE_INDEX
 [string] $WindowsVersion = "$env:PACKER_WINDOWS_VERSION"
 [string] $Locale = "$env:PACKER_LOCALE"
+
 function Set-Parameter($Parameter, $Prompt) {
     if ([string]::IsNullOrEmpty($Parameter)) {
         $Parameter = Read-Host -Prompt $Prompt        
