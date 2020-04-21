@@ -46,7 +46,6 @@ function GenerateAutountattend() {
 		
 		$MicrosoftWindowsInternationalCore.InputLocale = $Locale
 		$MicrosoftWindowsInternationalCore.SystemLocale = $Locale
-		$MicrosoftWindowsInternationalCore.UILanguage = $Locale
 		$MicrosoftWindowsInternationalCore.UserLocale = $Locale
 	}
 
@@ -91,7 +90,7 @@ function GenerateAutountattend() {
 
 	if ($WindowsVersion -eq "Win10") {
 		$SetAutoLoginPassword = Get-SynchronousCommand "Set AutoLoginPassword"
-		$SetAutoLoginPassword.CommandLine = "cmd /c > reg ADD ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v DefaultPassword /t REG_SZ /d $Password /f"
+		$SetAutoLoginPassword.CommandLine = "%SystemRoot%\System32\reg.exe ADD ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v DefaultPassword /t REG_SZ /d $Password /f"
 	}
 	
 	$AutounattendXml.Save("$InputPath\Autounattend.xml")
@@ -105,7 +104,6 @@ function GenerateSysprepUnattend() {
 	$MicrosoftWindowsInternationalCore = $oobeSystem.component[0]
 
 	$MicrosoftWindowsInternationalCore.SystemLocale = $Locale
-	$MicrosoftWindowsInternationalCore.UILanguage = $Locale
 	$MicrosoftWindowsInternationalCore.UserLocale = $Locale
 
 	$UserAccounts = $oobeSystem.component.UserAccounts
