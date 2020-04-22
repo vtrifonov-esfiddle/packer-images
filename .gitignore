@@ -6,6 +6,9 @@ answer.iso
 Autounattend.xml
 SysprepUnattend.xml
 
+# VM Output dir
+VMsOutput
+
 # Crash log
 crash.log
 
