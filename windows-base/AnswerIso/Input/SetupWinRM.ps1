@@ -26,4 +26,5 @@ winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 winrm set winrm/config/winrs '@{MaxMemoryPerShellMB="2048"}'
 
 Get-Service WinRM | Stop-Service
+Get-Service WinRM | Set-Service -StartupType Disabled
 netsh advfirewall firewall add rule name="WinRM-HTTP 5985" dir=in localport=5985 protocol=TCP action=allow

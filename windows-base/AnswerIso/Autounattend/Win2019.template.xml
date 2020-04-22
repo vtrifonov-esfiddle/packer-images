@@ -210,9 +210,15 @@
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c powershell -Command "Get-Service WinRM | Set-Service -StartupType Automatic"</CommandLine>
+                    <Description>Autostart Win RM So Packer Provisioners can access it</Description>
+                    <Order>7</Order>
+                    <RequiresUserInput>true</RequiresUserInput>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c shutdown /r /d p:4:2 /t 1</CommandLine>
                     <Description>Restart Windows</Description>
-                    <Order>7</Order>
+                    <Order>8</Order>
                     <RequiresUserInput>true</RequiresUserInput>
                 </SynchronousCommand>                
             </FirstLogonCommands>	
