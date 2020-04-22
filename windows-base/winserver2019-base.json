@@ -1,6 +1,6 @@
 {
     "variables": {
-        "vm_name": "winserver2019-base",
+        "vm_name": "win2019-base",
         "cpus": "3",
         "memory": "4096",
         "disk_size": "30720",

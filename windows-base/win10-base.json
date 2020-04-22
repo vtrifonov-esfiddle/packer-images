@@ -1,6 +1,6 @@
 {
     "variables": {
-        "vm_name": "windows10-base",
+        "vm_name": "win10-base",
         "cpus": "3",
         "memory": "4096",
         "disk_size": "30720",

@@ -1,6 +1,6 @@
 {
     "variables": {
-        "vm_name": "winserver2016-base",
+        "vm_name": "win2016-base",
         "cpus": "3",
         "memory": "4096",
         "disk_size": "30720",
