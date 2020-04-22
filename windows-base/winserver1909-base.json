@@ -1,0 +1,61 @@
+{
+    "variables": {
+        "vm_name": "winserver1909-base",
+        "cpus": "3",
+        "memory": "4096",
+        "disk_size": "30720",
+
+        "iso_url": "https://download.my.visualstudio.com/db/en_windows_server_version_1909_x64_dvd_894c6446.iso",
+        "iso_checksum": "62256AE2D89C93990963185065B53E7806E0203E9EFCFBF15E2FAFB3FA31FE84",
+        "iso_checksum_type": "sha256",
+
+        "username": null,
+        "password": null,
+        "vm_output_directory": null,
+        "ANSWER_ISO_DRIVE": "E:"
+    },
+    "builders": [{
+        "type": "hyperv-iso",
+        "output_directory": "{{ user `vm_output_directory` }}/{{ user `vm_name` }}",
+
+        "vm_name": "{{user `vm_name` }}",
+        "memory": "{{user `memory`}}",
+        "cpus": "{{user `cpus`}}",
+        "disk_size": "{{user `disk_size`}}",
+        "generation": 2,
+        "enable_secure_boot": true,
+
+        "floppy_files": [],
+        "secondary_iso_images": [
+            "./AnswerIso/answer.iso"
+        ],
+        "guest_additions_mode": "disable",
+
+        "iso_url": "{{user `iso_url`}}",
+        "iso_checksum_type": "{{user `iso_checksum_type`}}",
+        "iso_checksum": "{{user `iso_checksum`}}",
+
+        "communicator": "winrm",
+        "winrm_username": "{{user `username`}}",
+        "winrm_password": "{{user `password`}}",
+        "winrm_timeout": "4h",
+
+        "boot_command": [
+            "<enter><wait><enter>wait><enter>"
+        ],
+        "boot_wait": "1s",
+        "shutdown_timeout": "5m"
+    }],
+    "provisioners": [{
+        "type": "powershell",
+        "elevated_user": "{{user `username`}}",
+        "elevated_password": "{{user `password`}}",
+        "environment_vars": [
+            "ANSWER_ISO_DRIVE={{user `ANSWER_ISO_DRIVE`}}"
+        ],
+        "Scripts": [
+            "./InputScripts/RunSysprepGeneralize.ps1",
+            "./InputScripts/Shutdown.ps1"
+        ]
+    }]
+}
