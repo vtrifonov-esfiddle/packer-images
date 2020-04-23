@@ -230,3 +230,7 @@ if ($global:MoreUpdates -eq 1) {
 } else {
     Check-ContinueRestartOrEnd
 }
+
+LogWrite "Autostart Win RM So Packer Provisioners can access it"
+Get-Service WinRM | Set-Service -StartupType Automatic
+Get-Service WinRM | Start-Service

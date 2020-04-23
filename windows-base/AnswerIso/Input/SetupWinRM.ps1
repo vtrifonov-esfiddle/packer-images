@@ -1,4 +1,4 @@
-function Fix-NetworkConnectionsCategory() {
+function Fix-WorkgroupNetworkConnections() {
     if([environment]::OSVersion.version.Major -ge 6) {
         # You cannot change the network location if you are joined to a domain, so abort
         if(1,3,4,5 -contains (Get-WmiObject win32_computersystem).DomainRole) { return }
@@ -15,7 +15,7 @@ function Fix-NetworkConnectionsCategory() {
     }
 }
 
-Fix-NetworkConnectionsCategory
+Fix-WorkgroupNetworkConnections
 
 Enable-PSRemoting -Force
 winrm quickconfig -q
