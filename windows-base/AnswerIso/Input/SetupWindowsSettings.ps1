@@ -3,6 +3,10 @@ Param(
     [string] $Username,
     [string] $Password
 )
+
+. "$PSScriptRoot\Logger.ps1"
+$Logger = [Logger]::new("SetupWindowsSettings.log")
+
 function SetupPowerconfig() {
     #Set power configuration to High Performance
     &powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
@@ -38,6 +42,8 @@ function SetupRegistrySettings() {
   cd $CurrentPath
 }
 
+$Logger.Write("Setup Windows Settings Started")
+
 # Disable password expiration for default user
 wmic useraccount where "name='$Username'" set PasswordExpires=FALSE
 # ICMP open for ping
@@ -45,3 +51,5 @@ netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" p
 # Turn off all power saving and timeouts
 SetupPowerconfig
 SetupRegistrySettings
+
+$Logger.Write("Setup Windows Settings Finished")
