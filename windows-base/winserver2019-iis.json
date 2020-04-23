@@ -1,0 +1,47 @@
+{
+    "variables": {
+        "vm_name": "win2019-iis",
+        "cpus": "3",
+        "memory": "4096",
+
+        "username": null,
+        "password": null,
+        "base_image_name": "win2019-base",
+        "vm_output_directory": null,
+        "base_image_directory": null,
+        "ANSWER_ISO_DRIVE": "D:"
+    },
+    "builders": [{
+        "type": "hyperv-vmcx",
+        "clone_from_vmcx_path": "{{ user `base_image_directory` }}/{{ user `base_image_name` }}",
+        "output_directory": "{{ user `vm_output_directory` }}/{{ user `vm_name` }}",
+
+        "vm_name": "{{user `vm_name` }}",
+        "memory": "{{user `memory`}}",
+        "cpus": "{{user `cpus`}}",
+
+        "secondary_iso_images": [
+            "./AnswerIso/SysprepUnattend.iso"
+        ],
+        "communicator": "winrm",
+        "winrm_username": "{{user `username`}}",
+        "winrm_password": "{{user `password`}}",
+        "winrm_timeout": "4h",
+
+        "boot_wait": "1s",
+        "shutdown_timeout": "5m"
+    }],
+    "provisioners": [{
+        "type": "powershell",
+        "elevated_user": "{{user `username`}}",
+        "elevated_password": "{{user `password`}}",
+        "environment_vars": [
+            "ANSWER_ISO_DRIVE={{user `ANSWER_ISO_DRIVE`}}"
+        ],
+        "Scripts": [
+            "./InputScriptsIis/ProvisionIis.ps1",
+            "./InputScripts/RunSysprepGeneralize.ps1",
+            "./InputScripts/Shutdown.ps1"
+        ]
+    }]
+}
