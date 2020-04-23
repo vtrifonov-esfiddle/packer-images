@@ -6,4 +6,4 @@ $env:PACKER_WINDOWS_VERSION = "Win2016"
 $env:PACKER_LOCALE = "en-GB"
 $env:PACKER_INSTALLATION_IMAGE_INDEX = 1
 
-& ..\Build.ps1
+& ..\BaseBuild.ps1

@@ -27,7 +27,7 @@
 
         "floppy_files": [],
         "secondary_iso_images": [
-            "./AnswerIso/answer.iso"
+            "./AnswerIso/BaseAnswer.iso"
         ],
         "guest_additions_mode": "disable",
 

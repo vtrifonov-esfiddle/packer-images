@@ -6,4 +6,4 @@ $env:PACKER_WINDOWS_VERSION = "Win2019"
 $env:PACKER_LOCALE = "en-GB"
 $env:PACKER_INSTALLATION_IMAGE_INDEX = 2
 
-& ..\Build.ps1
+& ..\BaseBuild.ps1

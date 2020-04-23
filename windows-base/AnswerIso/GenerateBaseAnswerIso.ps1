@@ -13,13 +13,8 @@ Param(
 	# 4 ->  Windows Server 2016 Datacenter Evaluation (Desktop Experience)
 	[int] $InstallationImageIndex = 1
 )
-$RootPath = Resolve-Path ".\AnswerIso"
-$OutputPath = "$RootPath\answer.iso"
-$InputPath = "$RootPath\Input"
 
-if (test-path $OutputPath){
-	remove-item $OutputPath -Force
-}
+. "$PSScriptRoot\AnswerIso.ps1"
 
 function GenerateAutountattend() {
 	$AutounattendXml = New-Object XML
@@ -89,31 +84,17 @@ function GenerateAutountattend() {
 	$InstallWindowsUpdates = Get-SynchronousCommand "Install Windows Updates"
 	$InstallWindowsUpdates.CommandLine = Get-PowershellCommandFromAnswerIso "InstallWindowsUpdates.ps1"
 	
-	$AutounattendXml.Save("$InputPath\Autounattend.xml")
+	$AutounattendXml.Save("$IsoContentPath\Autounattend.xml")
 }
 
-function GenerateSysprepUnattend() {
-	$sysprepXml = New-Object XML
-	$sysprepXml.Load("$RootPath\SysprepUnattend\$WindowsVersion.template.xml")
-	
-	$oobeSystem = $sysprepXml.unattend.settings[1]
-	$MicrosoftWindowsInternationalCore = $oobeSystem.component[0]
-
-	$MicrosoftWindowsInternationalCore.SystemLocale = $Locale
-	$MicrosoftWindowsInternationalCore.UserLocale = $Locale
-
-	$UserAccounts = $oobeSystem.component.UserAccounts
-	$UserAccounts.AdministratorPassword.Value = $Password
-	$UserAccounts.LocalAccounts.LocalAccount.DisplayName = $Username
-	$UserAccounts.LocalAccounts.LocalAccount.Name = $Username
-	$UserAccounts.LocalAccounts.LocalAccount.Description = $Username
-	$UserAccounts.LocalAccounts.LocalAccount.Password.Value = $Password
-	
-	$sysprepXml.Save("$InputPath\SysprepUnattend.xml")
+function CopyInputScripts() {
+	$InputScriptsPath = "$RootPath\InputScripts\*"
+	Copy-Item -Path $InputScriptsPath -Destination $IsoContentPath 
 }
 
+CleanupIsoContentPath
 GenerateAutountattend
-GenerateSysprepUnattend
+GenerateSysprepUnattend $Username $Password $Locale
+CopyInputScripts
 
-# downloaded mkisofts.exe from: http://sourceforge.net/projects/tumagcc/files/schily-cdrtools-3.02a05.7z/download
-& $RootPath\mkisofs.exe -r -iso-level 4 -UDF -o $OutputPath $InputPath
+GenerateIso "BaseAnswer"

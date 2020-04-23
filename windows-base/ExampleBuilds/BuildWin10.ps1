@@ -5,4 +5,4 @@ $env:PACKER_TEMPLATE = "win10-base.json"
 $env:PACKER_WINDOWS_VERSION = "Win10"
 $env:PACKER_LOCALE = "en-GB"
 
-& ..\Build.ps1
+& ..\BaseBuild.ps1

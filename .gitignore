@@ -2,9 +2,9 @@
 packer_cache/
 
 # Answer generated files
-answer.iso
-Autounattend.xml
-SysprepUnattend.xml
+windows-base/AnswerIso/IsoContent/
+windows-base/AnswerIso/SysprepUnattend.iso
+windows-base/AnswerIso/BaseAnswer.iso
 
 # VM Output dir
 VMsOutput

@@ -27,20 +27,21 @@ if ($null -eq $InstallationImageIndex) {
     $InstallationImageIndex = 1        
 }
 
-$CurrentPath = $PWD
-cd $PSSCriptRoot
-
-.\GenerateAnswerIso.ps1 -Username $USERNAME `
+& $PSSCriptRoot\AnswerIso\GenerateBaseAnswerIso.ps1 -Username $USERNAME `
     -Password $PASSWORD `
     -AnswerIsoDrive $AnswerIsoDrive `
     -InstallationImageIndex $InstallationImageIndex `
     -WindowsVersion $WindowsVersion `
     -Locale $Locale
+
+$CurrentPath = $PWD
+cd $PSSCriptRoot
+    
 packer build `
      -var "username=$USERNAME" `
      -var "password=$PASSWORD" `
      -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
      -var "ANSWER_ISO_DRIVE=$AnswerIsoDrive" `
      $PACKER_TEMPLATE
-
+     
 cd $CurrentPath
