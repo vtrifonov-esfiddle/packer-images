@@ -1,6 +1,4 @@
 {
-    "_comment": "Build with `packer build ubuntu.json`",
-
     "variables": {
         "vm_name": "ubuntu1804-server",
         "cpus": "2",
@@ -8,6 +6,7 @@
 
         "ssh_username": null,
         "ssh_password": null,
+        "ssh_public_key_path": null,
 
         "base_image_directory": null,
         "base_image_name": "ubuntu1804-base",
@@ -34,19 +33,27 @@
         "shutdown_command": "echo {{user `ssh_password`}} | sudo -S -E shutdown -P now"
     }],
     "provisioners": [{
-        "environment_vars": [
-            "DEBIAN_FRONTEND=noninteractive",
-            "SSH_USERNAME={{user `ssh_username`}}",
-            "SSH_PASSWORD={{user `ssh_password`}}",
-            "VM_HOSTNAME={{user `vm_name`}}"
-        ],
-        "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-        "scripts": [
-            "scripts/hostname.sh",
-            "scripts/update.sh",
-            "scripts/server.sh"
-        ],
-        "type": "shell",
-        "expect_disconnect": "true"
-    }]
+            "type": "file",
+            "source": "{{user `ssh_public_key_path`}}",
+            "destination": "/home/{{user `ssh_username`}}/authorized_keys"
+        },
+        {
+            "environment_vars": [
+                "DEBIAN_FRONTEND=noninteractive",
+                "SSH_USERNAME={{user `ssh_username`}}",
+                "SSH_PASSWORD={{user `ssh_password`}}",
+                "VM_HOSTNAME={{user `vm_name`}}"
+            ],
+            "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "scripts": [
+                "scripts/hostname.sh",
+                "scripts/update.sh",
+                "scripts/server.sh",
+                "scripts/moveSshPublicKey.sh",
+                "scripts/removeRootPassword.sh"
+            ],
+            "type": "shell",
+            "expect_disconnect": "true"
+        }
+    ]
 }

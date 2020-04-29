@@ -20,10 +20,12 @@ $PACKER_TEMPLATE_NAME = Set-Parameter $PACKER_TEMPLATE_NAME "PACKER_TEMPLATE_NAM
 $CurrentPath = $PWD
 cd "$PSSCriptRoot\$PACKER_TEMPLATE_DIRECTORY"
 Write-Host "Running Packer template: $PSSCriptRoot\$PACKER_TEMPLATE_DIRECTORY\$PACKER_TEMPLATE_NAME.json"
+$sshPublicKeyPath = Resolve-Path "~/.ssh/id_rsa.pub"
 packer build `
      -var "ssh_username=$SSH_USERNAME" `
      -var "ssh_password=$SSH_PASSWORD" `
      -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
      -var "base_image_directory=$VM_OUTPUT_DIRECTORY" `
+     -var "ssh_public_key_path=$sshPublicKeyPath" `
      "$PACKER_TEMPLATE_NAME.json"
 cd $CurrentPath
