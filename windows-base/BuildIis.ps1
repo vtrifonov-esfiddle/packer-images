@@ -24,12 +24,19 @@ $Locale = Set-Parameter $Locale "Locale e.g. en-US: "
 
 $CurrentPath = $PWD
 cd $PSSCriptRoot
-    
-packer build `
-     -var "username=$USERNAME" `
-     -var "password=$PASSWORD" `
-     -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
-     -var "base_image_directory=$VM_OUTPUT_DIRECTORY" `
-     $PACKER_TEMPLATE
-     
+
+packer validate `
+    -var "username=$USERNAME" `
+    -var "password=$PASSWORD" `
+    -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
+    -var "base_image_directory=$VM_OUTPUT_DIRECTORY" `
+    $PACKER_TEMPLATE
+if ($LastExitCode -eq 0) {
+    packer build `
+    -var "username=$USERNAME" `
+    -var "password=$PASSWORD" `
+    -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
+    -var "base_image_directory=$VM_OUTPUT_DIRECTORY" `
+    $PACKER_TEMPLATE
+}
 cd $CurrentPath

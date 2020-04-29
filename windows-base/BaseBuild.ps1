@@ -36,12 +36,20 @@ if ($null -eq $InstallationImageIndex) {
 
 $CurrentPath = $PWD
 cd $PSSCriptRoot
-    
-packer build `
-     -var "username=$USERNAME" `
-     -var "password=$PASSWORD" `
-     -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
-     -var "ANSWER_ISO_DRIVE=$AnswerIsoDrive" `
-     $PACKER_TEMPLATE
-     
+
+packer validate `
+    -var "username=$USERNAME" `
+    -var "password=$PASSWORD" `
+    -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
+    -var "ANSWER_ISO_DRIVE=$AnswerIsoDrive" `
+    $PACKER_TEMPLATE
+if ($LastExitCode -eq 0) {
+    packer build `
+    -var "username=$USERNAME" `
+    -var "password=$PASSWORD" `
+    -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
+    -var "ANSWER_ISO_DRIVE=$AnswerIsoDrive" `
+    $PACKER_TEMPLATE
+}
+ 
 cd $CurrentPath
