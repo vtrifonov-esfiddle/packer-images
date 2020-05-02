@@ -38,7 +38,6 @@
             "SSH_PASSWORD={{user `ssh_password`}}",
             "VM_HOSTNAME={{user `vm_name`}}"
         ],
-        "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
         "scripts": [
             "scripts/hostname.sh",
             "scripts/docker.sh",

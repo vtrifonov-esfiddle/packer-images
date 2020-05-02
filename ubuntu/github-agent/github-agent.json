@@ -39,7 +39,6 @@
             "SSH_USERNAME={{user `ssh_username`}}",
             "GITHUB_TOKEN={{user `GITHUB_TOKEN`}}"
         ],
-        "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
         "scripts": [
             "scripts/hostname.sh",
             "scripts/github-agent.sh"
