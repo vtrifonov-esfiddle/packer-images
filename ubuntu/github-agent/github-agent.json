@@ -41,6 +41,7 @@
         ],
         "scripts": [
             "scripts/hostname.sh",
+            "scripts/git.sh",
             "scripts/github-agent.sh"
         ],
         "type": "shell"
