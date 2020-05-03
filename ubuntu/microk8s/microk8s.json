@@ -1,6 +1,6 @@
 {
     "variables": {
-        "vm_name": "ubuntu1804-docker",
+        "vm_name": "microk8s",
         "cpus": "2",
         "memory": "2048",
 
@@ -39,8 +39,7 @@
         ],
         "scripts": [
             "scripts/hostname.sh",
-            "scripts/docker.sh",
-            "scripts/docker-compose.sh"
+            "scripts/microk8s.sh"
         ],
         "type": "shell",
         "expect_disconnect": "true"
