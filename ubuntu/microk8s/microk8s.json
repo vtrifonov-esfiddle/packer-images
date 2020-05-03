@@ -39,7 +39,8 @@
         ],
         "scripts": [
             "scripts/hostname.sh",
-            "scripts/microk8s.sh"
+            "scripts/microk8s.sh",
+            "scripts/docker.sh"
         ],
         "type": "shell",
         "expect_disconnect": "true"
