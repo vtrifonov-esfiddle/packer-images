@@ -2,7 +2,7 @@
     "_comment": "Build with `packer build ubuntu.json`",
 
     "variables": {
-        "vm_name": "ubuntu-base",
+        "vm_name": "ubuntu1804-base",
         "cpus": "2",
         "memory": "2048",
         "disk_size": "30720",

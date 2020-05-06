@@ -9,7 +9,7 @@
         "ssh_public_key_path": null,
 
         "base_image_directory": null,
-        "base_image_name": "ubuntu-base",
+        "base_image_name": "ubuntu1804-base",
         "vm_output_directory": null
     },
     "builders": [{
