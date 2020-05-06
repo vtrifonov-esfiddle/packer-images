@@ -1,6 +1,6 @@
 {
     "variables": {
-        "vm_name": "ubuntu1804-docker",
+        "vm_name": "ubuntu-docker",
         "cpus": "2",
         "memory": "2048",
 
@@ -8,7 +8,7 @@
         "ssh_password": null,
 
         "base_image_directory": null,
-        "base_image_name": "ubuntu1804-server",
+        "base_image_name": "ubuntu-server",
         "vm_output_directory": null
     },
     "builders": [{

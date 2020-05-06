@@ -11,4 +11,4 @@
       state: present
   - name: update hostname
     hostname:
-      name: ubuntu1804-ansible-test
+      name: ubuntu-ansible-test

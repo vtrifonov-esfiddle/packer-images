@@ -2,7 +2,7 @@
     "_comment": "Build with `packer build ubuntu.json`",
 
     "variables": {
-        "vm_name": "ubuntu1804-desktop",
+        "vm_name": "ubuntu-desktop",
         "cpus": "3",
         "memory": "4096",
 
@@ -10,7 +10,7 @@
         "ssh_password": null,
 
         "base_image_directory": null,
-        "base_image_name": "ubuntu1804-base",
+        "base_image_name": "ubuntu-base",
         "vm_output_directory": null
     },
     "builders": [{

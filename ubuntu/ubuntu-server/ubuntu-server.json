@@ -1,6 +1,6 @@
 {
     "variables": {
-        "vm_name": "ubuntu1804-server",
+        "vm_name": "ubuntu-server",
         "cpus": "2",
         "memory": "2048",
 
@@ -9,7 +9,7 @@
         "ssh_public_key_path": null,
 
         "base_image_directory": null,
-        "base_image_name": "ubuntu1804-base",
+        "base_image_name": "ubuntu-base",
         "vm_output_directory": null
     },
     "builders": [{

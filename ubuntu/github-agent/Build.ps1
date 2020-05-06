@@ -6,7 +6,7 @@ Param(
     [string] $SSH_PASSWORD = "password",
     [string] $VM_OUTPUT_DIRECTORY = "../VMsOutput",
     [string] $VM_NAME = "ubuntu-agent-1",
-    [string] $BASE_IMAGE_NAME = "ubuntu1804-docker"
+    [string] $BASE_IMAGE_NAME = "ubuntu-docker"
 )
 
 $PACKER_TEMPLATE_NAME = "github-agent"
