@@ -14,11 +14,11 @@ Param(
 	[int] $InstallationImageIndex = 1
 )
 
-. "$PSScriptRoot\AnswerIso.ps1"
+. "$PSScriptRoot\..\..\answerIso\AnswerIso.ps1"
 
 function GenerateAutountattend() {
 	$AutounattendXml = New-Object XML
-	$AutounattendXml.Load("$RootPath\Autounattend\$WindowsVersion.template.xml")
+	$AutounattendXml.Load("$PSScriptRoot\Autounattend\$WindowsVersion.template.xml")
 		
 	$windowsPE = $AutounattendXml.unattend.settings[0]
 
@@ -88,7 +88,7 @@ function GenerateAutountattend() {
 }
 
 function CopyInputScripts() {
-	$InputScriptsPath = "$RootPath\InputScripts\*"
+	$InputScriptsPath = "$PSScriptRoot\InputScripts\*"
 	Copy-Item -Path $InputScriptsPath -Destination $IsoContentPath 
 }
 

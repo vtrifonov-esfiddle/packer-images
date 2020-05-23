@@ -1,33 +1,48 @@
 {
     "variables": {
-        "vm_name": "win2019-iis",
+        "vm_name": "win2016-base",
         "cpus": "3",
         "memory": "4096",
+        "disk_size": "30720",
+
+        "iso_url": "http://care.dlservice.microsoft.com/dl/download/1/6/F/16FA20E6-4662-482A-920B-1A45CF5AAE3C/14393.0.160715-1616.RS1_RELEASE_SERVER_EVAL_X64FRE_EN-US.ISO",
+        "iso_checksum": "18a4f00a675b0338f3c7c93c4f131beb",
+        "iso_checksum_type": "md5",
 
         "username": null,
         "password": null,
-        "base_image_name": "win2019-base",
         "vm_output_directory": null,
-        "base_image_directory": null,
-        "ANSWER_ISO_DRIVE": "D:"
+        "ANSWER_ISO_DRIVE": "E:"
     },
     "builders": [{
-        "type": "hyperv-vmcx",
-        "clone_from_vmcx_path": "{{ user `base_image_directory` }}/{{ user `base_image_name` }}",
+        "type": "hyperv-iso",
         "output_directory": "{{ user `vm_output_directory` }}/{{ user `vm_name` }}",
 
         "vm_name": "{{user `vm_name` }}",
         "memory": "{{user `memory`}}",
         "cpus": "{{user `cpus`}}",
+        "disk_size": "{{user `disk_size`}}",
+        "generation": 2,
+        "enable_secure_boot": true,
 
+        "floppy_files": [],
         "secondary_iso_images": [
-            "./AnswerIso/SysprepUnattend.iso"
+            "../answerIso/BaseAnswer.iso"
         ],
+        "guest_additions_mode": "disable",
+
+        "iso_url": "{{user `iso_url`}}",
+        "iso_checksum_type": "{{user `iso_checksum_type`}}",
+        "iso_checksum": "{{user `iso_checksum`}}",
+
         "communicator": "winrm",
         "winrm_username": "{{user `username`}}",
         "winrm_password": "{{user `password`}}",
         "winrm_timeout": "4h",
 
+        "boot_command": [
+            "<enter><wait><enter>wait><enter>"
+        ],
         "boot_wait": "1s",
         "shutdown_timeout": "5m"
     }],
@@ -39,7 +54,6 @@
             "ANSWER_ISO_DRIVE={{user `ANSWER_ISO_DRIVE`}}"
         ],
         "Scripts": [
-            "./InputScriptsIis/ProvisionIis.ps1",
             "./InputScripts/RunSysprepGeneralize.ps1",
             "./InputScripts/Shutdown.ps1"
         ]

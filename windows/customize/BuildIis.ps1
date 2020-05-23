@@ -18,7 +18,7 @@ $VM_OUTPUT_DIRECTORY = Set-Parameter $VM_OUTPUT_DIRECTORY "VM OUTPUT DIRECTORY: 
 $PACKER_TEMPLATE = Set-Parameter $PACKER_TEMPLATE "PACKER TEMPLATE e.g. winserver2016-base.json: "
 $Locale = Set-Parameter $Locale "Locale e.g. en-US: "
 
-& $PSSCriptRoot\AnswerIso\GenerateSysprepAnswerIso.ps1 -Username $USERNAME `
+& $PSSCriptRoot\..\answerIso\GenerateSysprepAnswerIso.ps1 -Username $USERNAME `
     -Password $PASSWORD `
     -Locale $Locale
 

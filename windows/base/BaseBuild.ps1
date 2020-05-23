@@ -27,7 +27,7 @@ if ($null -eq $InstallationImageIndex) {
     $InstallationImageIndex = 1        
 }
 
-& $PSSCriptRoot\AnswerIso\GenerateBaseAnswerIso.ps1 -Username $USERNAME `
+& $PSSCriptRoot\baseAnswerIso\GenerateBaseAnswerIso.ps1 -Username $USERNAME `
     -Password $PASSWORD `
     -AnswerIsoDrive $AnswerIsoDrive `
     -InstallationImageIndex $InstallationImageIndex `
