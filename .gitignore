@@ -6,8 +6,8 @@ windows/answerIso/IsoContent/
 windows/answerIso/SysprepUnattend.iso
 windows/answerIso/BaseAnswer.iso
 
-# VM Output dir
-VMsOutput
+# Images Output dir
+ImagesOutput
 
 # Crash log
 crash.log

@@ -11,12 +11,12 @@
 
         "username": null,
         "password": null,
-        "vm_output_directory": null,
+        "IMAGE_OUTPUT_DIRECTORY": null,
         "ANSWER_ISO_DRIVE": "E:"
     },
     "builders": [{
         "type": "hyperv-iso",
-        "output_directory": "{{ user `vm_output_directory` }}/{{ user `vm_name` }}",
+        "output_directory": "{{ user `IMAGE_OUTPUT_DIRECTORY` }}/{{ user `vm_name` }}",
 
         "vm_name": "{{user `vm_name` }}",
         "memory": "{{user `memory`}}",

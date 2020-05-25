@@ -7,14 +7,14 @@
         "username": null,
         "password": null,
         "base_image_name": "win2019-base",
-        "vm_output_directory": null,
+        "IMAGE_OUTPUT_DIRECTORY": null,
         "base_image_directory": null,
         "ANSWER_ISO_DRIVE": "D:"
     },
     "builders": [{
         "type": "hyperv-vmcx",
         "clone_from_vmcx_path": "{{ user `base_image_directory` }}/{{ user `base_image_name` }}",
-        "output_directory": "{{ user `vm_output_directory` }}/{{ user `vm_name` }}",
+        "output_directory": "{{ user `IMAGE_OUTPUT_DIRECTORY` }}/{{ user `vm_name` }}",
 
         "vm_name": "{{user `vm_name` }}",
         "memory": "{{user `memory`}}",

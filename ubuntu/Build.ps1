@@ -1,7 +1,7 @@
 
 [string] $SSH_USERNAME = $env:PACKER_USERNAME
 [string] $SSH_PASSWORD = $env:PACKER_PASSWORD
-[string] $VM_OUTPUT_DIRECTORY = $env:VM_OUTPUT_DIRECTORY
+[string] $IMAGE_OUTPUT_DIRECTORY = $env:IMAGE_OUTPUT_DIRECTORY
 [string] $PACKER_TEMPLATE_DIRECTORY = $env:PACKER_TEMPLATE_DIRECTORY
 [string] $PACKER_TEMPLATE_NAME = $env:PACKER_TEMPLATE_NAME
 function Set-Parameter($Parameter, $Prompt) {
@@ -13,7 +13,7 @@ function Set-Parameter($Parameter, $Prompt) {
 
 $SSH_USERNAME = Set-Parameter $SSH_USERNAME  "SSH_USERNAME: "
 $SSH_PASSWORD = Set-Parameter $SSH_PASSWORD "SSH_PASSWORD: "
-$VM_OUTPUT_DIRECTORY = Set-Parameter $VM_OUTPUT_DIRECTORY "VM_OUTPUT_DIRECTORY: "
+$IMAGE_OUTPUT_DIRECTORY = Set-Parameter $IMAGE_OUTPUT_DIRECTORY "IMAGE_OUTPUT_DIRECTORY: "
 $PACKER_TEMPLATE_DIRECTORY = Set-Parameter $PACKER_TEMPLATE_DIRECTORY "PACKER_TEMPLATE_DIRECTORY: "
 $PACKER_TEMPLATE_NAME = Set-Parameter $PACKER_TEMPLATE_NAME "PACKER_TEMPLATE_NAME: "
 
@@ -24,16 +24,16 @@ $sshPublicKeyPath = Resolve-Path "~/.ssh/id_rsa.pub"
 packer validate `
     -var "ssh_username=$SSH_USERNAME" `
     -var "ssh_password=$SSH_PASSWORD" `
-    -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
-    -var "base_image_directory=$VM_OUTPUT_DIRECTORY" `
+    -var "IMAGE_OUTPUT_DIRECTORY=$IMAGE_OUTPUT_DIRECTORY" `
+    -var "base_image_directory=$IMAGE_OUTPUT_DIRECTORY" `
     -var "ssh_public_key_path=$sshPublicKeyPath" `
     "$PACKER_TEMPLATE_NAME.json"
 if ($LastExitCode -eq 0) {
     packer build `
      -var "ssh_username=$SSH_USERNAME" `
      -var "ssh_password=$SSH_PASSWORD" `
-     -var "vm_output_directory=$VM_OUTPUT_DIRECTORY" `
-     -var "base_image_directory=$VM_OUTPUT_DIRECTORY" `
+     -var "IMAGE_OUTPUT_DIRECTORY=$IMAGE_OUTPUT_DIRECTORY" `
+     -var "base_image_directory=$IMAGE_OUTPUT_DIRECTORY" `
      -var "ssh_public_key_path=$sshPublicKeyPath" `
      "$PACKER_TEMPLATE_NAME.json"
 }

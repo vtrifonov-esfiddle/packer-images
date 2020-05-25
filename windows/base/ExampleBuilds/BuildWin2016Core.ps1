@@ -1,6 +1,6 @@
 $env:PACKER_USERNAME = "username"
 $env:PACKER_PASSWORD = "password"
-$env:VM_OUTPUT_DIRECTORY = "VMsOutput"
+$env:IMAGE_OUTPUT_DIRECTORY = "ImagesOutput"
 $env:PACKER_TEMPLATE = "winserver2016-base.json"
 $env:PACKER_WINDOWS_VERSION = "Win2016"
 $env:PACKER_LOCALE = "en-GB"

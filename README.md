@@ -30,6 +30,6 @@ cd .\ubuntu-base\
 ```
 $env:PACKER_USERNAME = "user"; `
 $env:PACKER_PASSWORD = "password"; `
-$env:VM_OUTPUT_DIRECTORY = "."; `
+$env:IMAGE_OUTPUT_DIRECTORY = "."; `
 .\Build.ps1
 ```

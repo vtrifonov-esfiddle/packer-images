@@ -9,7 +9,7 @@
 
         "base_image_directory": null,
         "base_image_name": "ubuntu-server",
-        "vm_output_directory": null
+        "IMAGE_OUTPUT_DIRECTORY": null
     },
     "builders": [{
         "boot_command": [
@@ -17,7 +17,7 @@
         ],
         "type": "hyperv-vmcx",
         "clone_from_vmcx_path": "{{ user `base_image_directory` }}/{{ user `base_image_name` }}",
-        "output_directory": "{{ user `vm_output_directory` }}/{{ user `vm_name` }}",
+        "output_directory": "{{ user `IMAGE_OUTPUT_DIRECTORY` }}/{{ user `vm_name` }}",
 
         "vm_name": "{{user `vm_name` }}",
         "memory": "{{user `memory`}}",
