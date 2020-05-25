@@ -1,6 +1,11 @@
 # packer-images
 
-Ubuntu and Windows Packar images for Hyper-V builder
+Ubuntu and Windows Packer images for Hyper-V builder
+
+## Prerequisites
+
+- Windows 10 Pro/Server with enabled [Hyper-V](https://docs.microsoft.com/en-gb/archive/blogs/canitpro/step-by-step-enabling-hyper-v-for-use-on-windows-10)
+- [Packer](https://www.packer.io/)
 
 ## Ubuntu
 
