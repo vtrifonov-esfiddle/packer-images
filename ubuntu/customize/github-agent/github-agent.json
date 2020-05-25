@@ -1,16 +1,15 @@
 {
     "variables": {
-        "vm_name": null,
+        "vm_name": "github-agent",
         "cpus": "2",
-        "memory": "2048",
+        "memory": "1024",
 
         "ssh_username": null,
         "ssh_password": null,
 
         "base_image_directory": null,
         "base_image_name": "ubuntu-docker",
-        "IMAGE_OUTPUT_DIRECTORY": null,
-        "GITHUB_TOKEN": null
+        "IMAGE_OUTPUT_DIRECTORY": null
     },
     "builders": [{
         "boot_command": [
@@ -33,16 +32,20 @@
         "shutdown_command": "echo {{user `ssh_password`}} | sudo -S -E shutdown -P now"
     }],
     "provisioners": [{
+            "type": "file",
+            "source": "./scripts/configureGithubAgent.sh",
+            "destination": "/home/{{user `ssh_username`}}/configureGithubAgent.sh"
+        },        
+        {
         "environment_vars": [
             "DEBIAN_FRONTEND=noninteractive",
             "VM_HOSTNAME={{user `vm_name`}}",
-            "SSH_USERNAME={{user `ssh_username`}}",
-            "GITHUB_TOKEN={{user `GITHUB_TOKEN`}}"
+            "SSH_USERNAME={{user `ssh_username`}}"
         ],
         "scripts": [
             "scripts/hostname.sh",
             "scripts/git.sh",
-            "scripts/github-agent.sh"
+            "scripts/githubAgent.sh"
         ],
         "type": "shell"
     }]
